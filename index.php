@@ -4,7 +4,7 @@ require_once 'funcoes.php';
 
 $resposta = '';
 
-if ($_GET['cep']) {
+if (isset($_GET['cep']) && !empty($_GET['cep'])) {
     $resposta = curl_get("http://viacep.com.br/ws/{$_GET['cep']}/json/");
 }
 
@@ -16,8 +16,11 @@ if ($_GET['cep']) {
 <head>
     <style>
         p{
-            margin: 0.5em;
-            padding: 0.2em;
+            margin: 0;
+            padding: 0;
+        }
+        .danger{
+            color: red;
         }
     </style>
     <meta charset="UTF-8">
@@ -28,22 +31,26 @@ if ($_GET['cep']) {
 <body>
     <div>
         <form action="">
-            <input type="text" name="cep" placeholder="Informe seu cep">
+            <h2>Informe seu cep para receber os dados.</h2>
+            <input type="text" name="cep" value="<?= $_GET['cep'] ?? '' ?>" placeholder="Informe seu cep">
             <input type="submit">
         </form>
     </div>
 
-    <?php if ($resposta) : ?>
-        <div>
-            <h2>Seu endereço:</h2>
+    <div>
+        <?php if ($resposta) : ?>
+            <h3>Seu endereço:</h3>
             <p>CEP: <?= $resposta->cep ?></p>
             <p>Rua: <?= $resposta->logradouro ?></p>
             <p>Bairro: <?= $resposta->bairro ?></p>
             <p>Cidade: <?= $resposta->localidade ?></p>
             <p>Estado: <?= $resposta->uf ?></p>
             <p>DDD: <?= $resposta->ddd ?></p>
-        </div>
-    <?php endif; ?>
+        <?php else: ?>
+            <p class="danger">O cep está incorreto, verifique e envie novamente!</p>
+        <?php endif; ?>
+    </div>
+                
 </body>
 
 </html>
