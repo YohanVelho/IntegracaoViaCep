@@ -14,15 +14,7 @@ if (isset($_GET['cep']) && !empty($_GET['cep'])) {
 <html lang="en">
 
 <head>
-    <style>
-        p{
-            margin: 0;
-            padding: 0;
-        }
-        .danger{
-            color: red;
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Integração ViaCEP</title>
